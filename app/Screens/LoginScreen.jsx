@@ -11,7 +11,6 @@ import {
   KeyboardAvoidingView,
   ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 import { Colors } from "../../constants/Colors";
 
@@ -20,11 +19,10 @@ import Button from "../../components/ui/CustomButton";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
-export default RegistrationScreen = () => {
+export default LoginScreen = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    login: "",
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
@@ -39,12 +37,8 @@ export default RegistrationScreen = () => {
     setIsPasswordVisible((prev) => !prev);
   };
 
-  const onAddAvatar = async () => {
-    console.log("Add avatar");
-  };
-
-  const onSignUp = () => {
-    console.log("Sign up!", formData);
+  const onSignIn = () => {
+    console.log("Sign in!", formData);
   };
 
   const showButton = (
@@ -75,21 +69,9 @@ export default RegistrationScreen = () => {
           style={styles.image}
         />
         <View style={styles.formContainer}>
-          <View style={styles.avatarContainer}>
-            <TouchableOpacity style={styles.addButton} onPress={onAddAvatar}>
-              <Icon name="plus" size={20} style={styles.icon} />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.title}>Реєстрація</Text>
+          <Text style={styles.title}>Увійти</Text>
 
           <View style={[styles.innerContainer, styles.inputContainer]}>
-            <Input
-              value={formData.login}
-              autofocus={true}
-              placeholder="Логін"
-              onTextChange={(value) => handleInputChange("login", value)}
-            />
-
             <Input
               value={formData.email}
               placeholder="Адреса електронної пошти"
@@ -110,16 +92,15 @@ export default RegistrationScreen = () => {
       </KeyboardAvoidingView>
 
       <View style={[styles.innerContainer, styles.buttonContainer]}>
-        <Button onPress={onSignUp}>
-          <Text style={[styles.baseText, styles.loginButtonText]}>
-            Зареєстуватися
-          </Text>
+        <Button onPress={onSignIn}>
+          <Text style={[styles.baseText, styles.loginButtonText]}>Увійти</Text>
         </Button>
 
-        <View style={styles.signUpContainer}>
+        <View style={styles.signInContainer}>
           <Text style={[styles.baseText, styles.secondaryTextColor]}>
-            Вже є акаунт? Увійти
+            Немає акаунту?
           </Text>
+          <Text style={styles.signInText}> Зареєструватися</Text>
         </View>
       </View>
     </Pressable>
@@ -149,7 +130,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 43,
-    paddingBottom: 45,
+    paddingBottom: 111,
     paddingHorizontal: 16,
   },
   formContainer: {
@@ -158,35 +139,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingHorizontal: 16,
-    paddingTop: 92,
     position: "relative",
   },
-  avatarContainer: {
-    width: 120,
-    height: 120,
-    backgroundColor: Colors.light_gray,
-    borderRadius: 16,
-    position: "absolute",
-    top: -60,
-    alignSelf: "center",
-  },
-  addButton: {
-    width: 25,
-    height: 25,
-    backgroundColor: "transparent",
-    borderRadius: 12.5,
-    borderWidth: 1,
-    borderColor: Colors.orange,
-    position: "absolute",
-    right: -12.5,
-    bottom: 14,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  icon: {
-    color: Colors.orange,
-  },
   title: {
+    paddingTop: 32,
     fontSize: 30,
     fontWeight: "500",
     lineHeight: 36,
@@ -219,9 +175,12 @@ const styles = StyleSheet.create({
   hidePasswordText: {
     right: -64,
   },
-  signUpContainer: {
+  signInContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+  signInText: {
+    textDecorationLine: "underline",
   },
 });
